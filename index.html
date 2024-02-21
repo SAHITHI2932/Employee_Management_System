@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Management System</h1>
+        <div id="output"></div>
+        <button onclick="CalculateAverageSalary()">Calculate Average Salary</button>
+        <button onclick="findEmployeeByDepartment('DataScience')">Find Employees in DataScience</button>
+        <button onclick="increaseSalary(10)">Increased Salaries by 10%</button>
+        <button onclick="sortEmployeesByAge()">Sort Employees by Age</button>
+    </div>
+   <script>
+    
+function Employee(name,age,department,salary){
+    this.name=name;
+    this.age=age;
+    this.department=department;
+    this.salary=salary;
+}
+let employees =[
+    new Employee("sahithi",22,"DataScience",50000),
+    new Employee("Mouli",24,"FrontEnd",87000),
+    new Employee("Manoj",23,"DataScience",60000),
+    new Employee("Bunny",26,"Devops",65000)
+];
+function displayOutput(output){
+    document.getElementById("output").innerHTML=output;
+}
+
+function CalculateAverageSalary(){
+    let totalSalary=employees.reduce((s, emp)=> s + emp.salary,0);
+    let averagesalary=totalSalary/employees.length;
+    displayOutput(`Average Salary:$${averagesalary.toFixed(2)}`);
+}
+function findEmployeeByDepartment(department){
+    let filteredEmployees=employees.filter(emp=>emp.department === department);
+    displayOutput(`Employees in ${department}: ${filteredEmployees.map(emp =>emp.name).join(',')}`);
+}
+
+
+
+function increaseSalary(percentage){
+    employees.forEach(emp=>{
+        emp.salary += emp.salary * (percentage / 100);
+    });
+    displayOutput("Salaries increased successfully!");
+}
+
+function sortEmployeesByAge(){
+    employees.sort((a,b)=>a.age-b.age);
+    displayOutput(`Employees Sorted by Age:${employees.map (emp=> emp.name).join(',')}`);
+}
+
+
+   </script>
+
+</body>
+</html>
